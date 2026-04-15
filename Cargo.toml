@@ -1,4 +1,5 @@
 [package]
+description = "A modern, fast, experimental crate, inspired by PowerShell"
 name = "deathfruit"
 version = "0.0.1"
 edition = "2024"
