@@ -13,4 +13,4 @@ echo "Deathfruit"
 ***please do note that this crate is experimental***
 
 ### License
-This project is licensed under the `BSD-3-Clause` license.
+This project is subject to the conditions of the `BSD-3-Clause` License.
