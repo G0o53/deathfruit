@@ -1,6 +1,8 @@
 # Deathfruit (Beta)
 
-Deathfruit is a shell-like command-runner, inspired by `pwsh`'s anti-POSIX and OOP programming. Deathfruit mixes a modern, fast and no OOP, with human-readable syntax such as 
+Deathfruit is a shell-like command-runner, inspired by `pwsh`'s anti-POSIX and OOP programming. Deathfruit mixes a modern, fast and no OOP, with human-readable syntax. It uses log-style warnings, errors, and info
+
+## Syntax
 ```asm
 puts "Deathfruit"
 ```
