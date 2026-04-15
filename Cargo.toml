@@ -1,10 +1,13 @@
 [package]
 description = "A modern, fast, experimental crate, inspired by PowerShell"
 name = "deathfruit"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2024"
 license = "BSD-3-Clause"
+homepage = "https://github.com/G0o53/deathfruit"
+repository = "https://github.com/G0o53/deathfruit"
 
+categories = ["command-line-utilities"]
 keywords = ["cli", "command-runner", "utility", "minimal", "experimental"]
 
 [[bin]]
