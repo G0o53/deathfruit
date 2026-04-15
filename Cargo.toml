@@ -9,5 +9,3 @@ keywords = ["cli", "command-runner", "utility", "minimal", "experimental"]
 [[bin]]
 name = "df"
 path = "src/main.rs"
-
-[dependencies]
