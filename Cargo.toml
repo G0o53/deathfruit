@@ -1,0 +1,13 @@
+[package]
+name = "deathfruit"
+version = "0.0.1"
+edition = "2024"
+license = "BSD-3-Clause"
+
+keywords = ["cli", "command-runner", "utility", "minimal", "experimental"]
+
+[[bin]]
+name = "df"
+path = "src/main.rs"
+
+[dependencies]
