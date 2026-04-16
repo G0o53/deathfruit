@@ -1,3 +1,8 @@
+// TODO
+/*
+ - add a "cmp" command that compares 2 integers sizes'
+*/
+
 /*
 This code is subject to the BSD-3-Clause license, 
 if a copy of the license was not included with the software,
@@ -14,6 +19,12 @@ you may obtain one here: https://opensource.org/license/bsd-3-clause
 
 /* WARNS
 01 means "not found, exiting gracefully"
+*/
+
+/* INFO
+01 means "checking args"
+02 means "collecting args"
+04 means "executing..."
 */
 
 use std::env;
@@ -38,7 +49,9 @@ fn main() {
     let command = &args[1];
 
     if command == "puts" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 2 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
             let str = &args[2];
             write!(out, "{str}").unwrap();    
         } else {
@@ -48,9 +61,12 @@ fn main() {
     } else if command == "&" {
         return;
     } else if command == "gets" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 2 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
             let prmpt = &args[2];
-
+            
+            write!(out, "\x1b[32m[INFO] 03\x1b[0m\n").unwrap();
             write!(out, "{prmpt}").unwrap();
             out.flush().unwrap();
             let mut input = String::new();
@@ -96,6 +112,9 @@ fn main() {
             print!("\x1b[31m[ERROR] 09\x1b[0m");
             std::process::exit(09);
         }
+    } else if command == "version" {
+        write!(out, "\x1b[32m[INFO] v0.0.3\x1b[0m").unwrap();
+        std::process::exit(00);
     } else {
         eprint!("\x1b[31m[ERROR] 02\x1b[0m");
         std::process::exit(02);
