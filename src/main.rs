@@ -43,7 +43,7 @@ fn main() {
     /* stdout lock */
 
     if args.len() < 2 {
-        eprint!("\x1b[31m[ERROR] 09\x1b[0m");
+        eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
         std::process::exit(09);
     }
     let command = &args[1];
@@ -55,7 +55,7 @@ fn main() {
             let str = &args[2];
             write!(out, "{str}").unwrap();    
         } else {
-            eprint!("\x1b[31m[ERROR] 09\x1b[0m");
+            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
             std::process::exit(09);
             }
     } else if command == "&" {
@@ -74,7 +74,7 @@ fn main() {
             
             print!("{input}");
         } else {
-            eprint!("\x1b[31m[ERROR] 09\x1b[0m");
+            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
             std::process::exit(09);
         }
     } else if command == "write" {
@@ -84,7 +84,7 @@ fn main() {
             fwrite(file, str).unwrap();
             std::process::exit(00);
         } else {
-            eprint!("\x1b[31m[ERROR] 09\x1b[0m");
+            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
             std::process::exit(09);
         }
     } else if command == "read" {
@@ -97,7 +97,7 @@ fn main() {
             print!("{line}");
             std::process::exit(00);
         } else {
-            print!("\x1b[31m[ERROR] 09");
+            print!("\x1b[31m[ERROR] 09\n");
             std::process::exit(09);
         }
     } else if command == "find" {
@@ -109,12 +109,50 @@ fn main() {
             let res = readline(path, str.to_string());
             print!("{res}");
         } else {
-            print!("\x1b[31m[ERROR] 09\x1b[0m");
+            print!("\x1b[31m[ERROR] 09\x1b[0m\n");
             std::process::exit(09);
         }
     } else if command == "version" {
-        write!(out, "\x1b[32m[INFO] v0.0.3\x1b[0m").unwrap();
+        write!(out, "\x1b[32m[INFO] v0.0.3\x1b[0m\n").unwrap();
         std::process::exit(00);
+    } else if command == "eval" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
+        if args.len() > 3 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
+            let x: &i64 = &args[2].parse().unwrap();
+            let y: &i64 = &args[3].parse().unwrap();
+            
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
+            if x > y {
+                write!(out, "{x}").unwrap();
+            } else if x < y {
+                write!(out, "{y}").unwrap();
+            } else {
+                write!(out, "=").unwrap();
+            }
+        } else {
+            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
+            std::process::exit(09);
+        }
+    } else if command == "cmp" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
+        if args.len() > 3 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
+            let x: &i64 = &args[2].parse().unwrap();
+            let y: &i64 = &args[3].parse().unwrap();
+
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
+            if x > y {
+                write!(out, ">").unwrap();
+            } else if x < y {
+                write!(out, "<").unwrap();
+            } else {
+                write!(out, "=").unwrap();
+            }
+        } else {
+            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
+            std::process::exit(09);
+        }
     } else {
         eprint!("\x1b[31m[ERROR] 02\x1b[0m");
         std::process::exit(02);
