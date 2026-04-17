@@ -1,6 +1,6 @@
 // TODO
 /*
- - add a "cmp" command that compares 2 integers sizes'
+empty
 */
 
 /*
@@ -30,7 +30,6 @@ you may obtain one here: https://opensource.org/license/bsd-3-clause
 use std::env;
 use std::io::Write;
 use std::io;
-use std::fs;
 use std::io::{BufRead, BufReader};
 use std::fs::File;
 
@@ -53,40 +52,35 @@ fn main() {
         if args.len() > 2 {
             write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
             let str = &args[2];
-            write!(out, "{str}").unwrap();    
+            write!(out, "{str}").unwrap();
+            
+            std::process::exit(0);
         } else {
             eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
             std::process::exit(09);
             }
     } else if command == "&" {
-        return;
+        std::process::exit(0);
     } else if command == "gets" {
         write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 2 {
             write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
             let prmpt = &args[2];
             
-            write!(out, "\x1b[32m[INFO] 03\x1b[0m\n").unwrap();
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
             write!(out, "{prmpt}").unwrap();
             out.flush().unwrap();
             let mut input = String::new();
             io::stdin().read_line(&mut input).unwrap();
             
             print!("{input}");
+
+            std::process::exit(0);
         } else {
             eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
             std::process::exit(09);
         }
-    } else if command == "write" {
-        if args.len() > 3 {
-            let file = &args[2];
-            let str = &args[3];
-            fwrite(file, str).unwrap();
-            std::process::exit(00);
-        } else {
-            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
-            std::process::exit(09);
-        }
+
     } else if command == "read" {
         if args.len() > 3 {
             let file = &args[2];
@@ -95,7 +89,7 @@ fn main() {
                 .unwrap();
             let line = freadl(file, *wlinen);
             print!("{line}");
-            std::process::exit(00);
+            std::process::exit(0);
         } else {
             print!("\x1b[31m[ERROR] 09\n");
             std::process::exit(09);
@@ -108,13 +102,14 @@ fn main() {
                 .unwrap();
             let res = readline(path, str.to_string());
             print!("{res}");
+            std::process::exit(0);
         } else {
             print!("\x1b[31m[ERROR] 09\x1b[0m\n");
             std::process::exit(09);
         }
     } else if command == "version" {
         write!(out, "\x1b[32m[INFO] v0.0.3\x1b[0m\n").unwrap();
-        std::process::exit(00);
+        std::process::exit(0);
     } else if command == "eval" {
         write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 3 {
@@ -125,10 +120,13 @@ fn main() {
             write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
             if x > y {
                 write!(out, "{x}").unwrap();
+                std::process::exit(0);
             } else if x < y {
                 write!(out, "{y}").unwrap();
+                std::process::exit(0);
             } else {
                 write!(out, "=").unwrap();
+                std::process::exit(0);
             }
         } else {
             eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
@@ -144,11 +142,38 @@ fn main() {
             write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
             if x > y {
                 write!(out, ">").unwrap();
+                std::process::exit(0);
             } else if x < y {
                 write!(out, "<").unwrap();
+                std::process::exit(0);
             } else {
                 write!(out, "=").unwrap();
+                std::process::exit(0);
             }
+        } else {
+            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
+            std::process::exit(09);
+        }
+    } else if command == "min" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
+        if args.len() > 3 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
+
+            let x: &i64 = &args[2].parse().unwrap();
+            let y: &i64 = &args[3].parse().unwrap();
+
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
+            if x > y {
+                write!(out, "{y}").unwrap();
+                std::process::exit(0);
+            } else if x < y {
+                write!(out, "{x}").unwrap();
+                std::process::exit(0);
+            } else {
+                write!(out, "=").unwrap();
+                std::process::exit(0);
+            }
+
         } else {
             eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
             std::process::exit(09);
@@ -159,11 +184,7 @@ fn main() {
     }
 }
 
-fn fwrite(file: &str, str: &str) -> std::io::Result<()> {
-    fs::write(file, str)?;
-    Ok(())
-}
-
+#[inline]
 fn freadl(pathfile: &str, line: i64) -> String {
     let mut linen: i64 = 1;
     let mut lline = String::new();
@@ -181,6 +202,8 @@ fn freadl(pathfile: &str, line: i64) -> String {
     let exit = String::from("\x1b[33m[WARN] 01\x1b[0m");
     exit
 }
+
+#[inline]
 
 fn readline(pathfile: &str, line: String) -> String {
     let mut lline = String::new();
