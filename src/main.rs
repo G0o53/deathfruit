@@ -1,6 +1,6 @@
 // TODO
 /*
-empty
+add more useful tools
 */
 
 /*
@@ -108,7 +108,7 @@ fn main() {
             std::process::exit(09);
         }
     } else if command == "version" {
-        write!(out, "\x1b[32m[INFO] v0.0.6\x1b[0m\n").unwrap();
+        write!(out, "\x1b[32m[INFO] v0.0.7\x1b[0m\n").unwrap();
         std::process::exit(0);
     } else if command == "eval" {
         write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
@@ -178,6 +178,29 @@ fn main() {
             eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
             std::process::exit(09);
         }
+    } else if command == "chalk" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
+        if args.len() > 4 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
+
+            let x: &i64 = &args[2].parse().unwrap();
+            let op = &args[3];
+            let y: &i64 = &args[4].parse().unwrap();
+
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
+            if op == "+" {
+                write!(out, "{}\n", x+y).unwrap();
+            } else if op == "-" {
+                write!(out, "{}\n", x-y).unwrap();
+            } else if op == "*" {
+                write!(out, "{}\n", x*y).unwrap();
+            } else if op == "/" {
+                write!(out, "{}\n", x/y).unwrap();
+            } else {
+                write!(out, "\x1b[31m[ERROR] 02\x1b[0m").unwrap();
+                std::process::exit(02);
+            }
+        }
     } else {
         eprint!("\x1b[31m[ERROR] 02\x1b[0m");
         std::process::exit(02);
@@ -204,7 +227,6 @@ fn freadl(pathfile: &str, line: i64) -> String {
 }
 
 #[inline]
-
 fn readline(pathfile: &str, line: String) -> String {
     let mut lline = String::new();
     let file = File::open(pathfile).unwrap();
