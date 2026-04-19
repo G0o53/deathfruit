@@ -17,6 +17,16 @@ you may obtain one here: https://opensource.org/license/bsd-3-clause
 09 means "not enough args"
 */
 
+/* WARNS
+01 means "not found, exiting gracefully"
+*/
+
+/* INFO
+01 means "checking args"
+02 means "collecting args"
+04 means "executing..."
+*/
+
 use std::env;
 use std::io::Write;
 use std::io;
@@ -38,7 +48,9 @@ fn main() {
     let command = &args[1];
 
     if command == "puts" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 2 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
             let str = &args[2];
             write!(out, "{str}").unwrap();
             
@@ -50,9 +62,12 @@ fn main() {
     } else if command == "&" {
         std::process::exit(0);
     } else if command == "gets" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 2 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
             let prmpt = &args[2];
             
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
             write!(out, "{prmpt}").unwrap();
             out.flush().unwrap();
             let mut input = String::new();
@@ -93,13 +108,16 @@ fn main() {
             std::process::exit(09);
         }
     } else if command == "version" {
-        write!(out, "\x1b[32m[INFO] v0.0.8\x1b[0m\n").unwrap();
+        write!(out, "\x1b[32m[INFO] v0.0.9\x1b[0m\n").unwrap();
         std::process::exit(0);
     } else if command == "eval" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 3 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
             let x: &i64 = &args[2].parse().unwrap();
             let y: &i64 = &args[3].parse().unwrap();
             
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
             if x > y {
                 write!(out, "{x}").unwrap();
                 std::process::exit(0);
@@ -115,10 +133,13 @@ fn main() {
             std::process::exit(09);
         }
     } else if command == "cmp" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 3 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
             let x: &i64 = &args[2].parse().unwrap();
             let y: &i64 = &args[3].parse().unwrap();
 
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
             if x > y {
                 write!(out, ">").unwrap();
                 std::process::exit(0);
@@ -134,10 +155,14 @@ fn main() {
             std::process::exit(09);
         }
     } else if command == "min" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 3 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
+
             let x: &i64 = &args[2].parse().unwrap();
             let y: &i64 = &args[3].parse().unwrap();
 
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
             if x > y {
                 write!(out, "{y}").unwrap();
                 std::process::exit(0);
@@ -154,11 +179,15 @@ fn main() {
             std::process::exit(09);
         }
     } else if command == "chalk" {
+        write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
         if args.len() > 4 {
+            write!(out, "\x1b[32m[INFO] 02\x1b[0m\n").unwrap();
+
             let x: &i64 = &args[2].parse().unwrap();
             let op = &args[3];
             let y: &i64 = &args[4].parse().unwrap();
 
+            write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
             if op == "+" {
                 write!(out, "{}\n", x+y).unwrap();
             } else if op == "-" {
@@ -193,7 +222,7 @@ fn freadl(pathfile: &str, line: i64) -> String {
             return lline;
         }
     }
-    let exit = String::new();
+    let exit = String::from("\x1b[33m[WARN] 01\x1b[0m");
     exit
 }
 
@@ -209,7 +238,6 @@ fn readline(pathfile: &str, line: String) -> String {
         }
         lline.clear();
     }
-    let exit = String::new();
+    let exit = String::from("\x1b[33m[WARN] 01\x1b[0m");
     exit
 }
-
