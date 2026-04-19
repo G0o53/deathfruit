@@ -1,7 +1,7 @@
 [package]
 description = "A modern, fast, experimental crate, inspired by PowerShell"
 name = "deathfruit"
-version = "0.0.7"
+version = "0.0.8"
 edition = "2024"
 license = "BSD-3-Clause"
 homepage = "https://github.com/G0o53/deathfruit"
@@ -12,7 +12,11 @@ keywords = ["cli", "command-runner", "utility", "minimal", "experimental"]
 
 [[bin]]
 name = "df"
-path = "src/main.rs"
+path = "src/df/main.rs"
+
+[[bin]]
+name = "qdf"
+path = "src/qdf/main.rs"
 
 [profile.release]
 panic = "abort"
