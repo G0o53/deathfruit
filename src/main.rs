@@ -42,7 +42,7 @@ fn main() {
     /* stdout lock */
 
     if args.len() < 2 {
-        eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
+        write!(out, "\x1b[31m[ERROR] 09\x1b[0m\n").unwrap();
         std::process::exit(09);
     }
     let command = &args[1];
@@ -56,7 +56,7 @@ fn main() {
             
             std::process::exit(0);
         } else {
-            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
+            write!(out, "\x1b[31m[ERROR] 09\x1b[0m\n").unwrap();
             std::process::exit(09);
             }
     } else if command == "&" {
@@ -77,7 +77,7 @@ fn main() {
 
             std::process::exit(0);
         } else {
-            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
+            write!(out, "\x1b[31m[ERROR] 09\x1b[0m\n").unwrap(); 
             std::process::exit(09);
         }
 
@@ -129,7 +129,7 @@ fn main() {
                 std::process::exit(0);
             }
         } else {
-            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
+            write!(out, "\x1b[31m[ERROR] 09\x1b[0m\n").unwrap();
             std::process::exit(09);
         }
     } else if command == "cmp" {
@@ -151,7 +151,7 @@ fn main() {
                 std::process::exit(0);
             }
         } else {
-            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
+            write!(out, "\x1b[31m[ERROR] 09\x1b[0m\n").unwrap();
             std::process::exit(09);
         }
     } else if command == "min" {
@@ -175,7 +175,7 @@ fn main() {
             }
 
         } else {
-            eprint!("\x1b[31m[ERROR] 09\x1b[0m\n");
+            write!(out, "\x1b[31m[ERROR] 09\x1b[0m\n").unwrap();
             std::process::exit(09);
         }
     } else if command == "chalk" {
@@ -188,21 +188,22 @@ fn main() {
             let y: &i64 = &args[4].parse().unwrap();
 
             write!(out, "\x1b[32m[INFO] 04\x1b[0m\n").unwrap();
-            if op == "+" {
-                write!(out, "{}\n", x+y).unwrap();
-            } else if op == "-" {
-                write!(out, "{}\n", x-y).unwrap();
-            } else if op == "*" {
-                write!(out, "{}\n", x*y).unwrap();
-            } else if op == "/" {
-                write!(out, "{}\n", x/y).unwrap();
-            } else {
-                write!(out, "\x1b[31m[ERROR] 02\x1b[0m").unwrap();
-                std::process::exit(02);
+            match op.as_str() {
+                "+" => write!(out, "{}\n", x+y).unwrap(),
+                "-" => write!(out, "{}\n", x-y).unwrap(),
+                "*" => write!(out, "{}\n", x*y).unwrap(), 
+                "/" => write!(out, "{}\n", x/y).unwrap(),
+                _ => { 
+                    write!(out, "\x1b[31m[ERROR] 02\x1b[0m\n").unwrap(); 
+                    std::process::exit(02);
+                }
             }
+        } else {
+            write!(out, "\x1b[31m[ERROR] 09\x1b[0m\n").unwrap();
+            std::process::exit(09);
         }
     } else {
-        eprint!("\x1b[31m[ERROR] 02\x1b[0m");
+        write!(out, "\x1b[31m[ERROR] 02\x1b[0m").unwrap();
         std::process::exit(02);
     }
 }
