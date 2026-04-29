@@ -108,7 +108,7 @@ fn main() {
             std::process::exit(09);
         }
     } else if command == "version" {
-        write!(out, "\x1b[32m[INFO] v0.0.9\x1b[0m\n").unwrap();
+        write!(out, "\x1b[32m[INFO] v0.0.12\x1b[0m\n").unwrap();
         std::process::exit(0);
     } else if command == "eval" {
         write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
