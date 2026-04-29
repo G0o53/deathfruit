@@ -2,9 +2,7 @@
 
 Deathfruit is a shell-like command-runner, inspired by `pwsh`'s anti-POSIX. Deathfruit mixes a modern, fast and interesting approach, with human-readable syntax. It uses log-style warnings, errors, and info
 
-> This crate is a non-production crate
-> Never will be
-> It is stable
+> This crate is a non-production crate, though it is stable.
 
 ## Syntax
 ```ruby
