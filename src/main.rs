@@ -108,7 +108,7 @@ fn main() {
             std::process::exit(09);
         }
     } else if command == "version" {
-        write!(out, "\x1b[32m[INFO]\x1b[0m v0.0.13\n").unwrap();
+        write!(out, "\x1b[32m[INFO]\x1b[0m v0.0.14\n").unwrap();
         std::process::exit(0);
     } else if command == "eval" {
         write!(out, "\x1b[32m[INFO] 01\x1b[0m\n").unwrap();
@@ -203,7 +203,7 @@ fn main() {
             std::process::exit(09);
         }
     } else {
-        write!(out, "\x1b[31m[ERROR] 02\x1b[0m").unwrap();
+        write!(out, "\x1b[31m[ERROR] 02\x1b[0m\n").unwrap();
         std::process::exit(02);
     }
 }
@@ -223,7 +223,7 @@ fn freadl(pathfile: &str, line: i64) -> String {
             return lline;
         }
     }
-    let exit = String::from("\x1b[33m[WARN] 01\x1b[0m");
+    let exit = String::from("\x1b[33m[WARN] 01\x1b[0m\n");
     exit
 }
 
@@ -239,6 +239,6 @@ fn readline(pathfile: &str, line: String) -> String {
         }
         lline.clear();
     }
-    let exit = String::from("\x1b[33m[WARN] 01\x1b[0m");
+    let exit = String::from("\x1b[33m[WARN] 01\x1b[0m\n");
     exit
 }
